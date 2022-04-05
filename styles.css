@@ -1,0 +1,100 @@
+body {
+  font-family: "Roboto", sans-serif;
+}
+.content {
+  max-width: 600px;
+  background: #fff7f9;
+  margin: 30px auto;
+  border-radius: 4px;
+  padding: 30px 20px;
+}
+.content:hover {
+  border: 1.5px dashed #ff3366;
+}
+
+.btn {
+  background: rgb(249 146 172 / 91%);
+  padding: 3px 5px;
+
+  font-size: 14px;
+}
+
+.icon {
+  position: relative;
+  top: 20px;
+  left: 55px;
+}
+h1,
+h2,
+h3 {
+  color: #616074;
+  font-weight: bold;
+}
+h1 {
+  font-size: 34px;
+}
+
+h2 {
+  font-size: 52px;
+  color: #ff3366;
+}
+sup {
+  color: #616074;
+  font-weight: bold;
+  font-size: 20px;
+  position: relative;
+  top: -60px;
+  left: 60px;
+}
+.degree-C,
+.degree-F:hover {
+  cursor: pointer;
+}
+.degree-C {
+  color: #ff3366;
+}
+.status,
+.temperature {
+  background: rgb(249 146 172 / 20%);
+  border: 1.5px solid #ff3366;
+  border-radius: 2px;
+  text-align: center;
+  color: #ff3366;
+  padding: 8px 0;
+  margin: 0 14px;
+}
+
+h3 {
+  font-size: 14px;
+  text-align: right;
+  position: relative;
+  right: 40px;
+  bottom: -10px;
+}
+.next-days {
+  text-align: center;
+  font-size: 14px;
+  color: #616074;
+  position: relative;
+  left: 50px;
+}
+.small-icon {
+  margin: 10px;
+  padding: 10px;
+}
+.small-icon:hover {
+  background: rgb(249 146 172 / 20%);
+  border-radius: 100%;
+}
+.credit {
+  font-size: 10px;
+  color: #616074;
+  display: block;
+  text-align: center;
+  position: relative;
+  bottom: 30px;
+}
+.credit-link {
+  text-decoration: none;
+  color: #ff3366be;
+}
