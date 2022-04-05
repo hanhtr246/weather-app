@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Application</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="src/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="content">
+        <form class="city-form">
+          <input
+            type="text"
+            id="city"
+            style="width: 50%"
+            placeholder="Enter your city"
+          />
+          <input
+            type="submit"
+            class="btn btn-danger enter-button"
+            value="Enter"
+          />
+          <input
+            type="button"
+            class="btn btn-danger location-button"
+            value="Current location"
+          />
+        </form>
+        <div class="row">
+          <div class="col-6 icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="150"
+              height="150"
+              fill="#ff3366"
+              class="bi bi-cloud-drizzle-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M4.158 12.025a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm6 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm-3.5 1.5a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm6 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 1 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm.747-8.498a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 11H13a3 3 0 0 0 .405-5.973z"
+              />
+            </svg>
+          </div>
+          <div class="col-6">
+            <br />
+            <div current-city">
+            <h1>Hanoi</h1>
+            <div class="row">
+              <div class="col-6">
+                <h2>17</h2>
+                <sup class="degree-C">°C</sup>
+                <sup>/</sup>
+                <sup class="degree-F">°F</sup>
+              </div>
+              <div class="col-6">
+                <h3>
+                  <div class="date">Fri, Feb 18</div>
+                  <div class="time">23:55</div>
+                </h3>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4 status">
+                <strong id="description"> Rainy</strong>
+              </div>
+              <div class="col-4 temperature">13<strong>/23°</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="row next-days">
+        <div class="col-2">
+          Sat
+          <br />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="50"
+            height="50"
+            fill="#ff3366"
+            class="bi bi-cloud-drizzle-fill small-icon"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M4.158 12.025a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm6 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm-3.5 1.5a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm6 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 1 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm.747-8.498a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 11H13a3 3 0 0 0 .405-5.973z"
+            />
+          </svg>
+          13<strong>/23°</strong>
+        </div>
+        <div class="col-2">
+          Sun
+          <br />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="50"
+            height="50"
+            fill="#ff3366"
+            class="bi bi-cloud-drizzle-fill small-icon"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M4.158 12.025a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm6 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm-3.5 1.5a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm6 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 1 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm.747-8.498a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 11H13a3 3 0 0 0 .405-5.973z"
+            />
+          </svg>
+          13<strong>/23°</strong>
+        </div>
+        <div class="col-2">
+          Mon
+          <br />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="50"
+            height="50"
+            fill="#ff3366"
+            class="bi bi-cloud-drizzle-fill small-icon"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M4.158 12.025a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm6 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm-3.5 1.5a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm6 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 1 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm.747-8.498a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 11H13a3 3 0 0 0 .405-5.973z"
+            />
+          </svg>
+          13<strong>/23°</strong>
+        </div>
+        <div class="col-2">
+          Tue
+          <br />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="50"
+            height="50"
+            fill="#ff3366"
+            class="bi bi-cloud-drizzle-fill small-icon"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M4.158 12.025a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm6 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm-3.5 1.5a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm6 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 1 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm.747-8.498a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 11H13a3 3 0 0 0 .405-5.973z"
+            />
+          </svg>
+          13<strong>/23°</strong>
+        </div>
+        <div class="col-2">
+          Wed
+          <br />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="50"
+            height="50"
+            fill="#ff3366"
+            class="bi bi-cloud-drizzle-fill small-icon"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M4.158 12.025a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm6 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm-3.5 1.5a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm6 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 1 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm.747-8.498a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 11H13a3 3 0 0 0 .405-5.973z"
+            />
+          </svg>
+          13<strong>/23°</strong>
+        </div>
+      </div>
+    </div>
+    <em class="credit"
+      ><a
+        class="credit-link"
+        href="https://github.com/3yh4nh/weather-app"
+        target="_blank"
+        >Open-source code</a
+      >
+      by Hanh Tran</em
+    >
+    <script src="script/index.js"></script>
+  </body>
+</html>
