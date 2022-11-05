@@ -29,8 +29,7 @@ body {
   left: 55px;
 }
 h1,
-h3,
-.degree-F {
+h3 {
   color: #616074;
   font-weight: bold;
 }
@@ -51,17 +50,17 @@ h1 {
   top: -25px;
   left: -3px;
 }
-
-a {
-  text-decoration: none;
-}
-
-.degree-C,
-.degree-F:hover {
-  cursor: pointer;
-}
-.degree-C {
+#degree-C {
   color: #ff3366;
+}
+
+.active {
+  color: #616074;
+}
+
+.active:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .status,
@@ -110,6 +109,7 @@ h3 {
 }
 .credit-link {
   color: #ff3366be;
+  text-decoration: none;
 }
 
 em {

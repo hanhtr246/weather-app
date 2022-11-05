@@ -53,9 +53,9 @@ function changeTime(timestamp) {
 }
 
 function getWeather(response) {
-  celsiusTemperature = response.data.main.temp;
+  temperatureC = response.data.main.temp;
   document.querySelector(".current-temperature").innerHTML =
-    Math.round(celsiusTemperature);
+    Math.round(temperatureC);
   document.querySelector("#description").innerHTML =
     response.data.weather[0].main;
   document.querySelector("h1").innerHTML = response.data.name;
@@ -67,12 +67,24 @@ function getWeather(response) {
 }
 
 function changeToFahrenheit(event) {
-  let temperatureF = Math.round(celsiusTemperature * 1.8 + 32);
-  document.querySelector(".current-temperature").innerHTML = temperatureF;
+  event.preventDefault();
+  let temperatureF = temperatureC * 1.8 + 32;
+  document.querySelector(".current-temperature").innerHTML =
+    Math.round(temperatureF);
+  scaleC.classList.add("active");
+  scaleF.classList.remove("active");
+  document.querySelector("#degree-F").style.color = "#ff3366";
+  document.querySelector("#degree-C").style.color = "#616074";
 }
 
 function changeToCelcius(event) {
-  document.querySelector(".current-temperature").innerHTML = celsiusTemperature;
+  event.preventDefault();
+  document.querySelector(".current-temperature").innerHTML =
+    Math.round(temperatureC);
+  scaleC.classList.remove("active");
+  scaleF.classList.add("active");
+  document.querySelector("#degree-C").style.color = "#ff3366";
+  document.querySelector("#degree-F").style.color = "#616074";
 }
 
 changeTime();
@@ -80,9 +92,9 @@ changeTime();
 let enterButton = document.querySelector(".city-form");
 enterButton.addEventListener("submit", changeCity);
 
-let scaleC = document.querySelector(".degree-C");
+let scaleC = document.querySelector("#degree-C");
 scaleC.addEventListener("click", changeToCelcius);
-let scaleF = document.querySelector(".degree-F");
+let scaleF = document.querySelector("#degree-F");
 scaleF.addEventListener("click", changeToFahrenheit);
 
 let locationButton = document.querySelector(".location-button");
@@ -92,5 +104,5 @@ locationButton.addEventListener("click", function () {
 
 let apiKey = "a47ca9fe29317629114f50ba968f7192";
 let units = "metric";
-let celsiusTemperature = null;
+let temperatureC = null;
 search("Hanoi");
