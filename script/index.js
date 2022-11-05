@@ -15,16 +15,7 @@ function getLocation(position) {
   axios.get(apiUrl).then(getWeather);
 }
 
-function getWeather(response) {
-  document.querySelector(".current-temperature").innerHTML = Math.round(
-    response.data.main.temp
-  );
-  document.querySelector("#description").innerHTML =
-    response.data.weather[0].main;
-  document.querySelector("h1").innerHTML = response.data.name;
-}
-
-function changeTime() {
+function changeTime(timestamp) {
   let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   let months = [
     "Jan",
@@ -40,7 +31,7 @@ function changeTime() {
     "Nov",
     "Dec",
   ];
-  let now = new Date();
+  let now = new Date(timestamp);
   let date = now.getDate();
   let day = days[now.getDay()];
   let month = months[now.getMonth()];
@@ -52,30 +43,36 @@ function changeTime() {
   if (minute < 10) {
     minute = `0${minute}`;
   }
-  let showDate = `${day}, ${month} ${date}`;
+  let showDate = `${day} ${month} ${date}`;
   let showTime = `${hour}:${minute}`;
 
-  let currentDate = document.querySelector(".date");
-  let currentTime = document.querySelector(".time");
+  let currentDate = document.querySelector("#date");
+  let currentTime = document.querySelector("#time");
   currentDate.innerHTML = showDate;
   currentTime.innerHTML = showTime;
 }
 
-function changeToFahrenheit() {
-  let h2 = document.querySelector(".current-temperature");
-  let temperatureC = h2.innerHTML;
-  let temperatureF = Math.round(parseFloat(temperatureC) * 1.8 + 32);
-  h2.innerHTML = temperatureF.toString();
-  document.querySelector(".degree-F").style.color = "#ff3366";
-  document.querySelector(".degree-C").style.color = "#616074";
+function getWeather(response) {
+  celsiusTemperature = response.data.main.temp;
+  document.querySelector(".current-temperature").innerHTML =
+    Math.round(celsiusTemperature);
+  document.querySelector("#description").innerHTML =
+    response.data.weather[0].main;
+  document.querySelector("h1").innerHTML = response.data.name;
+  document.querySelector("#humidity").innerHTML = response.data.main.humidity;
+  document.querySelector("#wind").innerHTML = Math.round(
+    response.data.wind.speed
+  );
+  changeTime(response.data.dt * 1000);
 }
-function changeToCelcius() {
-  let h2 = document.querySelector(".current-temperature");
-  let temperatureF = h2.innerHTML;
-  let temperatureC = Math.round((parseFloat(temperatureF) - 32) / 1.8);
-  h2.innerHTML = temperatureC.toString();
-  document.querySelector(".degree-C").style.color = "#ff3366";
-  document.querySelector(".degree-F").style.color = "#616074";
+
+function changeToFahrenheit(event) {
+  let temperatureF = Math.round(celsiusTemperature * 1.8 + 32);
+  document.querySelector(".current-temperature").innerHTML = temperatureF;
+}
+
+function changeToCelcius(event) {
+  document.querySelector(".current-temperature").innerHTML = celsiusTemperature;
 }
 
 changeTime();
@@ -95,4 +92,5 @@ locationButton.addEventListener("click", function () {
 
 let apiKey = "a47ca9fe29317629114f50ba968f7192";
 let units = "metric";
+let celsiusTemperature = null;
 search("Hanoi");

@@ -29,6 +29,7 @@
             id="city"
             style="width: 50%"
             placeholder="Enter your city"
+            autocomplete="off"
           />
           <input
             type="submit"
@@ -64,14 +65,16 @@
               <div class="col-6">
                 <span class="current-temperature"></span>
                 <span class="units">
-                <span class="degree-C">°C</span>/<span class="degree-F">°F</span></span>
+                <a class="degree-C">°C</a>/<a class="degree-F">°F</a></span>
               </div>
-              <div class="col-6">
-                <h3>
-                  <div class="date"></div>
-                  <div class="time"></div>
-                </h3>
-              </div>
+              <h3 class="col-6">
+                <div>Humidity: <span id="humidity"></span>%</div>
+                <div>Wind: <span id="wind"></span> km/h</div>
+              </h3>
+              <em class="updated-time">Updated: 
+                  <span id="date"></span>,
+                  <span id="time"></span>
+              </em>
             </div>
             <div class="row">
               <div class="col-4 status">
