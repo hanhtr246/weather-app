@@ -25,7 +25,6 @@ body {
   left: 55px;
 }
 h1,
-h2,
 h3 {
   color: #616074;
   font-weight: bold;
@@ -34,17 +33,18 @@ h1 {
   font-size: 34px;
 }
 
-h2 {
+.current-temperature {
+  font-weight: bold;
   font-size: 52px;
   color: #ff3366;
 }
-sup {
+.units {
   color: #616074;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 15px;
   position: relative;
-  top: -60px;
-  left: 60px;
+  top: -25px;
+  left: -3px;
 }
 .degree-C,
 .degree-F:hover {

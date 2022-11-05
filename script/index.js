@@ -16,7 +16,9 @@ function getLocation(position) {
 }
 
 function getWeather(response) {
-  document.querySelector("h2").innerHTML = Math.round(response.data.main.temp);
+  document.querySelector(".current-temperature").innerHTML = Math.round(
+    response.data.main.temp
+  );
   document.querySelector("#description").innerHTML =
     response.data.weather[0].main;
   document.querySelector("h1").innerHTML = response.data.name;
@@ -60,7 +62,7 @@ function changeTime() {
 }
 
 function changeToFahrenheit() {
-  let h2 = document.querySelector("h2");
+  let h2 = document.querySelector(".current-temperature");
   let temperatureC = h2.innerHTML;
   let temperatureF = Math.round(parseFloat(temperatureC) * 1.8 + 32);
   h2.innerHTML = temperatureF.toString();
@@ -68,7 +70,7 @@ function changeToFahrenheit() {
   document.querySelector(".degree-C").style.color = "#616074";
 }
 function changeToCelcius() {
-  let h2 = document.querySelector("h2");
+  let h2 = document.querySelector(".current-temperature");
   let temperatureF = h2.innerHTML;
   let temperatureC = Math.round((parseFloat(temperatureF) - 32) / 1.8);
   h2.innerHTML = temperatureC.toString();
