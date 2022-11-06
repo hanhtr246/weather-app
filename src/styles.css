@@ -19,8 +19,12 @@ body {
 .btn {
   background: rgb(249 146 172 / 91%);
   padding: 3px 5px;
-
   font-size: 14px;
+}
+
+.bi {
+  filter: invert(37%) sepia(52%) saturate(4178%) hue-rotate(324deg)
+    brightness(98%) contrast(107%);
 }
 
 .icon {
@@ -76,7 +80,6 @@ h1 {
 
 h3 {
   font-size: 14px;
-  font-weight: 600;
   position: relative;
   right: 15px;
   bottom: -15px;

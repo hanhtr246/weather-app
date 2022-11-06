@@ -70,6 +70,7 @@ function getWeather(response) {
     response.data.wind.speed
   );
   changeTime(response.data.dt * 1000);
+  // console.log(response.data);
 }
 
 function changeToFahrenheit(event) {
