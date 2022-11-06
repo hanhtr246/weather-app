@@ -59,6 +59,12 @@ function getWeather(response) {
   document.querySelector("#description").innerHTML =
     response.data.weather[0].main;
   document.querySelector("h1").innerHTML = response.data.name;
+  document.querySelector("#temp-min").innerHTML = Math.round(
+    response.data.main.temp_min
+  );
+  document.querySelector("#temp-max").innerHTML = Math.round(
+    response.data.main.temp_max
+  );
   document.querySelector("#humidity").innerHTML = response.data.main.humidity;
   document.querySelector("#wind").innerHTML = Math.round(
     response.data.wind.speed
@@ -105,4 +111,4 @@ locationButton.addEventListener("click", function () {
 let apiKey = "a47ca9fe29317629114f50ba968f7192";
 let units = "metric";
 let temperatureC = null;
-search("Hanoi");
+search("Paris");
