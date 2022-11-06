@@ -52,12 +52,26 @@ function changeTime(timestamp) {
   currentTime.innerHTML = showTime;
 }
 
+function changeIcon(description, iconInfo) {
+  let lowerDescription = description.toLowerCase();
+  if (iconInfo == "50d" || lowerDescription == "clear") {
+    iconFileName = iconInfo;
+  } else {
+    iconFileName = lowerDescription;
+  }
+
+  document
+    .querySelector("#description-icon")
+    .setAttribute("href", `images/${iconFileName}.svg`);
+}
+
 function getWeather(response) {
   temperatureC = response.data.main.temp;
+  let description = response.data.weather[0].main;
+  let iconInfo = response.data.weather[0].icon;
   document.querySelector(".current-temperature").innerHTML =
     Math.round(temperatureC);
-  document.querySelector("#description").innerHTML =
-    response.data.weather[0].main;
+  document.querySelector("#description").innerHTML = description;
   document.querySelector("h1").innerHTML = response.data.name;
   document.querySelector("#temp-min").innerHTML = Math.round(
     response.data.main.temp_min
@@ -70,7 +84,8 @@ function getWeather(response) {
     response.data.wind.speed
   );
   changeTime(response.data.dt * 1000);
-  // console.log(response.data);
+  changeIcon(description, iconInfo);
+  console.log(response.data);
 }
 
 function changeToFahrenheit(event) {
@@ -112,4 +127,5 @@ locationButton.addEventListener("click", function () {
 let apiKey = "a47ca9fe29317629114f50ba968f7192";
 let units = "metric";
 let temperatureC = null;
+let iconFileName = null;
 search("Paris");
