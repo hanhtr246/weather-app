@@ -54,7 +54,7 @@ function changeTime(timestamp) {
 
 function changeIcon(description, iconInfo) {
   let lowerDescription = description.toLowerCase();
-  if (iconInfo == "50d" || lowerDescription == "clear") {
+  if (iconInfo.substring(0, 2) == "50" || lowerDescription == "clear") {
     iconFileName = iconInfo;
   } else {
     iconFileName = lowerDescription;
@@ -85,7 +85,6 @@ function getWeather(response) {
   );
   changeTime(response.data.dt * 1000);
   changeIcon(description, iconInfo);
-  console.log(response.data);
 }
 
 function changeToFahrenheit(event) {
