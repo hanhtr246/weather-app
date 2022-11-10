@@ -100,9 +100,7 @@ h3 {
 .small-icon {
   margin: 10px;
   padding: 10px;
-}
-.small-icon:hover {
-  background: rgb(249 146 172 / 20%);
+  background: rgb(249 146 172 / 10%);
   border-radius: 100%;
 }
 .credit {
