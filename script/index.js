@@ -16,7 +16,15 @@ function getLocation(position) {
 }
 
 function changeTime(timestamp) {
-  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
   let months = [
     "Jan",
     "Feb",
@@ -43,7 +51,7 @@ function changeTime(timestamp) {
   if (minute < 10) {
     minute = `0${minute}`;
   }
-  let showDate = `${day} ${month} ${date}`;
+  let showDate = `${day}, ${month} ${date}`;
   let showTime = `${hour}:${minute}`;
 
   let currentDate = document.querySelector("#date");
