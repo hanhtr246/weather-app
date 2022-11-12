@@ -60,6 +60,21 @@ function changeTime(timestamp) {
   currentTime.innerHTML = showTime;
 }
 
+function formatDay(timestamp) {
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let now = new Date(timestamp * 1000);
+  let day = days[now.getDay()].substring(0, 3);
+  return day;
+}
+
 function changeIcon(description, iconInfo) {
   let lowerDescription = description.toLowerCase();
   if (iconInfo.substring(0, 2) == "50" || lowerDescription == "clear") {
@@ -68,9 +83,15 @@ function changeIcon(description, iconInfo) {
     iconFileName = lowerDescription;
   }
 
-  document
-    .querySelector("#description-icon")
-    .setAttribute("href", `images/${iconFileName}.svg`);
+  // document
+  //   .querySelector("#description-icon")
+  //   .setAttribute("href", `images/${iconFileName}.svg`);
+  return iconFileName;
+}
+
+function getForcast(coordinates) {
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=${units}`;
+  axios.get(apiUrl).then(displayForecast);
 }
 
 function getWeather(response) {
@@ -96,7 +117,11 @@ function getWeather(response) {
     response.data.wind.speed
   );
   changeTime(response.data.dt * 1000);
-  changeIcon(description, iconInfo);
+  // changeIcon(description, iconInfo);
+  document
+    .querySelector("#description-icon")
+    .setAttribute("href", `images/${changeIcon(description, iconInfo)}.svg`);
+  getForcast(response.data.coord);
 }
 
 function changeToFahrenheit(event) {
@@ -120,29 +145,25 @@ function changeToCelcius(event) {
   document.querySelector("#degree-F").style.color = "#616074";
 }
 
-function displayForecast() {
+function displayForecast(response) {
+  let forecastData = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
-  let days = ["Sun", "Mon", "Tue", "Wed", "Thu"];
   let forecastHTML = `<div class="row">`;
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `<div class="col-2">${day}
+  forecastData.forEach(function (forecastDay, index) {
+    if ((index > 0) & (index < 6)) {
+      let iconForecast = changeIcon(
+        forecastDay.weather[0].main,
+        forecastDay.weather[0].icon
+      );
+      forecastHTML += `<div class="col-2">${formatDay(forecastDay.dt)}
           <br />
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="50"
-            height="50"
-            class="bi small-icon"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="M4.158 12.025a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm6 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm-3.5 1.5a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 0 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm6 0a.5.5 0 0 1 .316.633l-.5 1.5a.5.5 0 1 1-.948-.316l.5-1.5a.5.5 0 0 1 .632-.317zm.747-8.498a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 11H13a3 3 0 0 0 .405-5.973z"
-            />
-          </svg>
+          <svg><image class="bi" "small-icon" width="30" height="30" href="images/${iconForecast}.svg"/></svg>
           <br />
-          13<strong>/23°</strong>
+          ${Math.round(forecastDay.temp.min)}<strong>/${Math.round(
+        forecastDay.temp.max
+      )}°</strong>
         </div>`;
+    }
   });
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
@@ -168,4 +189,3 @@ let units = "metric";
 let temperatureC = null;
 let iconFileName = null;
 search("Paris");
-displayForecast();
