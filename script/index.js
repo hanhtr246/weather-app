@@ -2,8 +2,6 @@ function changeCity(event) {
   event.preventDefault();
   let inputCity = document.querySelector("#city").value;
   search(inputCity);
-  document.querySelector("#degree-C").style.color = "#ff3366";
-  document.querySelector("#degree-F").style.color = "#616074";
 }
 function search(city) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
@@ -77,6 +75,10 @@ function changeIcon(description, iconInfo) {
 
 function getWeather(response) {
   temperatureC = response.data.main.temp;
+  scaleC.classList.remove("active");
+  scaleF.classList.add("active");
+  document.querySelector("#degree-C").style.color = "#ff3366";
+  document.querySelector("#degree-F").style.color = "#616074";
   let description = response.data.weather[0].main;
   let iconInfo = response.data.weather[0].icon;
   document.querySelector(".current-temperature").innerHTML =
