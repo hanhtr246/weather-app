@@ -10,7 +10,7 @@ body {
   padding: 30px 20px;
 }
 .content:hover {
-  border: 1.5px dashed #ff3366;
+  border: 2px dashed #ff3366aa;
 }
 
 .city-form {
@@ -120,6 +120,7 @@ h3 {
 em {
   font-size: 10px;
   color: #616074;
+  padding-top: 10px;
 }
 
 .chiacot {
