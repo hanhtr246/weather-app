@@ -32,6 +32,13 @@ body {
   top: 50px;
   left: 80px;
 }
+
+svg.small-icon {
+  width: 30px;
+  height: 60px;
+  padding-top: 10px;
+}
+
 h1,
 h3 {
   color: #616074;
@@ -97,12 +104,7 @@ h3 {
   position: relative;
   left: 50px;
 }
-.small-icon {
-  margin: 10px auto;
-  padding: 10px;
-  background: rgb(249 146 172 / 10%);
-  border-radius: 100%;
-}
+
 .credit {
   display: block;
   text-align: center;

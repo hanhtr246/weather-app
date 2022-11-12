@@ -155,10 +155,12 @@ function displayForecast(response) {
         forecastDay.weather[0].main,
         forecastDay.weather[0].icon
       );
-      forecastHTML += `<div class="col-2">${formatDay(forecastDay.dt)}
-          <br />
-          <svg><image class="bi" "small-icon" width="30" height="30" href="images/${iconForecast}.svg"/></svg>
-          <br />
+      forecastHTML += `<div class="col-2 forcast-border">${formatDay(
+        forecastDay.dt
+      )}
+          <div>
+          <svg class="small-icon"><image class="bi" width="30px" height="30px" href="images/${iconForecast}.svg"/></svg>
+          </div>
           ${Math.round(forecastDay.temp.min)}<strong>/${Math.round(
         forecastDay.temp.max
       )}°</strong>
