@@ -82,30 +82,36 @@ function convertToFahrenheit(event) {
   let temperatureF = temperatureC * 1.8 + 32;
   document.querySelector(".current-temperature").innerHTML =
     Math.round(temperatureF);
-  scaleC.classList.add("active");
-  scaleF.classList.remove("active");
-  document.querySelector("#degree-F").style.color = "#ff3366";
-  document.querySelector("#degree-C").style.color = "#616074";
+  styleToUnit("Fahrenheit");
 }
 
 function convertToCelcius(event) {
   event.preventDefault();
   document.querySelector(".current-temperature").innerHTML =
     Math.round(temperatureC);
-  scaleC.classList.remove("active");
-  scaleF.classList.add("active");
-  document.querySelector("#degree-C").style.color = "#ff3366";
-  document.querySelector("#degree-F").style.color = "#616074";
+  styleToUnit("Celcius");
+}
+
+function styleToUnit(destinationUnit) {
+  if (destinationUnit[0] == "C") {
+    scaleC.classList.remove("active");
+    scaleF.classList.add("active");
+    document.querySelector("#degree-C").style.color = "#ff3366";
+    document.querySelector("#degree-F").style.color = "#616074";
+  } else {
+    scaleC.classList.add("active");
+    scaleF.classList.remove("active");
+    document.querySelector("#degree-F").style.color = "#ff3366";
+    document.querySelector("#degree-C").style.color = "#616074";
+  }
 }
 
 function getWeather(response) {
+  styleToUnit("Celcius");
   temperatureC = response.data.main.temp;
-  scaleC.classList.remove("active");
-  scaleF.classList.add("active");
-  document.querySelector("#degree-C").style.color = "#ff3366";
-  document.querySelector("#degree-F").style.color = "#616074";
   let description = response.data.weather[0].main;
   let iconInfo = response.data.weather[0].icon;
+
   document.querySelector(".current-temperature").innerHTML =
     Math.round(temperatureC);
   document.querySelector("#description").innerHTML = description;
@@ -120,10 +126,11 @@ function getWeather(response) {
   document.querySelector("#wind").innerHTML = Math.round(
     response.data.wind.speed
   );
-  updateTime(response.data.dt);
   document
     .querySelector("#description-icon")
     .setAttribute("href", `images/${updateIcon(description, iconInfo)}.svg`);
+
+  updateTime(response.data.dt);
   getForcast(response.data.coord);
 }
 
