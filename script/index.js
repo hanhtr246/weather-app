@@ -17,8 +17,7 @@ function getForcast(coordinates) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(displayForecast);
 }
-
-function changeTime(timestamp) {
+function formatTime(timestamp) {
   let days = [
     "Sunday",
     "Monday",
@@ -42,7 +41,7 @@ function changeTime(timestamp) {
     "Nov",
     "Dec",
   ];
-  let now = new Date(timestamp);
+  let now = new Date(timestamp * 1000);
   let date = now.getDate();
   let day = days[now.getDay()];
   let month = months[now.getMonth()];
@@ -56,11 +55,15 @@ function changeTime(timestamp) {
   }
   let showDate = `${day}, ${month} ${date}`;
   let showTime = `${hour}:${minute}`;
+  return [showDate, showTime];
+}
 
+function changeTime(timestamp) {
+  let formattedTime = formatTime(timestamp);
   let currentDate = document.querySelector("#date");
   let currentTime = document.querySelector("#time");
-  currentDate.innerHTML = showDate;
-  currentTime.innerHTML = showTime;
+  currentDate.innerHTML = formattedTime[0];
+  currentTime.innerHTML = formattedTime[1];
 }
 
 function formatDay(timestamp) {
@@ -114,7 +117,7 @@ function getWeather(response) {
   document.querySelector("#wind").innerHTML = Math.round(
     response.data.wind.speed
   );
-  changeTime(response.data.dt * 1000);
+  changeTime(response.data.dt);
   // changeIcon(description, iconInfo);
   document
     .querySelector("#description-icon")
@@ -168,8 +171,6 @@ function displayForecast(response) {
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
 }
-
-changeTime();
 
 let enterButton = document.querySelector(".city-form");
 enterButton.addEventListener("submit", enterCity);
