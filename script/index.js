@@ -1,17 +1,17 @@
 function enterCity(event) {
   event.preventDefault();
   let inputCity = document.querySelector("#city").value;
-  search(inputCity);
+  searchWeather(inputCity);
 }
-function search(city) {
+function searchWeather(city) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
-  axios.get(apiUrl).then(getWeather);
+  axios.get(apiUrl).then(displayWeather);
 }
 function getUserLocation(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}`;
-  axios.get(apiUrl).then(getWeather);
+  axios.get(apiUrl).then(displayWeather);
 }
 function getForcast(coordinates) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=${units}`;
@@ -106,7 +106,7 @@ function styleToUnit(destinationUnit) {
   }
 }
 
-function getWeather(response) {
+function displayWeather(response) {
   styleToUnit("Celcius");
   temperatureC = response.data.main.temp;
   let description = response.data.weather[0].main;
@@ -176,4 +176,4 @@ let apiKey = "a47ca9fe29317629114f50ba968f7192";
 let units = "metric";
 let temperatureC = null;
 let iconFileName = null;
-search("Paris");
+searchWeather("Paris");
