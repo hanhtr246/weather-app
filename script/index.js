@@ -58,40 +58,21 @@ function formatTime(timestamp) {
   return [showDate, showTime];
 }
 
-function changeTime(timestamp) {
+function updateTime(timestamp) {
   let formattedTime = formatTime(timestamp);
-  let currentDate = document.querySelector("#date");
-  let currentTime = document.querySelector("#time");
-  currentDate.innerHTML = formattedTime[0];
-  currentTime.innerHTML = formattedTime[1];
+  let dateElement = document.querySelector("#date");
+  let timeElement = document.querySelector("#time");
+  dateElement.innerHTML = formattedTime[0];
+  timeElement.innerHTML = formattedTime[1];
 }
 
-function formatDay(timestamp) {
-  let days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  let now = new Date(timestamp * 1000);
-  let day = days[now.getDay()].substring(0, 3);
-  return day;
-}
-
-function changeIcon(description, iconInfo) {
+function updateIcon(description, iconInfo) {
   let lowerDescription = description.toLowerCase();
   if (iconInfo.substring(0, 2) == "50" || lowerDescription == "clear") {
     iconFileName = iconInfo;
   } else {
     iconFileName = lowerDescription;
   }
-
-  // document
-  //   .querySelector("#description-icon")
-  //   .setAttribute("href", `images/${iconFileName}.svg`);
   return iconFileName;
 }
 
@@ -117,11 +98,10 @@ function getWeather(response) {
   document.querySelector("#wind").innerHTML = Math.round(
     response.data.wind.speed
   );
-  changeTime(response.data.dt);
-  // changeIcon(description, iconInfo);
+  updateTime(response.data.dt);
   document
     .querySelector("#description-icon")
-    .setAttribute("href", `images/${changeIcon(description, iconInfo)}.svg`);
+    .setAttribute("href", `images/${updateIcon(description, iconInfo)}.svg`);
   getForcast(response.data.coord);
 }
 
@@ -152,13 +132,13 @@ function displayForecast(response) {
   let forecastHTML = `<div class="row">`;
   forecastData.forEach(function (forecastDay, index) {
     if ((index > 0) & (index < 6)) {
-      let iconForecast = changeIcon(
+      let iconForecast = updateIcon(
         forecastDay.weather[0].main,
         forecastDay.weather[0].icon
       );
-      forecastHTML += `<div class="col forecast-cols">${formatDay(
+      forecastHTML += `<div class="col forecast-cols">${formatTime(
         forecastDay.dt
-      )}
+      )[0].substring(0, 3)}
           <div>
           <svg class="small-icon"><image class="bi" width="30px" height="30px" href="images/${iconForecast}.svg"/></svg>
           </div>
