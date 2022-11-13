@@ -91,7 +91,7 @@ function convertToCelcius(event) {
   document.querySelector(".current-temperature").innerHTML =
     Math.round(temperatureC);
   styleToUnit("Celcius");
-  getForcast(currentCoord, units);
+  getForcast(currentCoord, "metric");
 }
 
 function styleToUnit(destinationUnit) {
