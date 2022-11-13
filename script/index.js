@@ -17,6 +17,7 @@ function getForcast(coordinates) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(displayForecast);
 }
+
 function formatTime(timestamp) {
   let days = [
     "Sunday",
@@ -76,6 +77,27 @@ function updateIcon(description, iconInfo) {
   return iconFileName;
 }
 
+function convertToFahrenheit(event) {
+  event.preventDefault();
+  let temperatureF = temperatureC * 1.8 + 32;
+  document.querySelector(".current-temperature").innerHTML =
+    Math.round(temperatureF);
+  scaleC.classList.add("active");
+  scaleF.classList.remove("active");
+  document.querySelector("#degree-F").style.color = "#ff3366";
+  document.querySelector("#degree-C").style.color = "#616074";
+}
+
+function convertToCelcius(event) {
+  event.preventDefault();
+  document.querySelector(".current-temperature").innerHTML =
+    Math.round(temperatureC);
+  scaleC.classList.remove("active");
+  scaleF.classList.add("active");
+  document.querySelector("#degree-C").style.color = "#ff3366";
+  document.querySelector("#degree-F").style.color = "#616074";
+}
+
 function getWeather(response) {
   temperatureC = response.data.main.temp;
   scaleC.classList.remove("active");
@@ -103,27 +125,6 @@ function getWeather(response) {
     .querySelector("#description-icon")
     .setAttribute("href", `images/${updateIcon(description, iconInfo)}.svg`);
   getForcast(response.data.coord);
-}
-
-function changeToFahrenheit(event) {
-  event.preventDefault();
-  let temperatureF = temperatureC * 1.8 + 32;
-  document.querySelector(".current-temperature").innerHTML =
-    Math.round(temperatureF);
-  scaleC.classList.add("active");
-  scaleF.classList.remove("active");
-  document.querySelector("#degree-F").style.color = "#ff3366";
-  document.querySelector("#degree-C").style.color = "#616074";
-}
-
-function changeToCelcius(event) {
-  event.preventDefault();
-  document.querySelector(".current-temperature").innerHTML =
-    Math.round(temperatureC);
-  scaleC.classList.remove("active");
-  scaleF.classList.add("active");
-  document.querySelector("#degree-C").style.color = "#ff3366";
-  document.querySelector("#degree-F").style.color = "#616074";
 }
 
 function displayForecast(response) {
@@ -154,16 +155,15 @@ function displayForecast(response) {
 
 let enterButton = document.querySelector(".city-form");
 enterButton.addEventListener("submit", enterCity);
-
-let scaleC = document.querySelector("#degree-C");
-scaleC.addEventListener("click", changeToCelcius);
-let scaleF = document.querySelector("#degree-F");
-scaleF.addEventListener("click", changeToFahrenheit);
-
 let locationButton = document.querySelector(".location-button");
 locationButton.addEventListener("click", function () {
   navigator.geolocation.getCurrentPosition(getUserLocation);
 });
+
+let scaleC = document.querySelector("#degree-C");
+scaleC.addEventListener("click", convertToCelcius);
+let scaleF = document.querySelector("#degree-F");
+scaleF.addEventListener("click", convertToFahrenheit);
 
 let apiKey = "a47ca9fe29317629114f50ba968f7192";
 let units = "metric";
