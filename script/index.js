@@ -1,4 +1,4 @@
-function changeCity(event) {
+function enterCity(event) {
   event.preventDefault();
   let inputCity = document.querySelector("#city").value;
   search(inputCity);
@@ -7,7 +7,6 @@ function search(city) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(getWeather);
 }
-
 function getUserLocation(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
@@ -173,7 +172,7 @@ function displayForecast(response) {
 changeTime();
 
 let enterButton = document.querySelector(".city-form");
-enterButton.addEventListener("submit", changeCity);
+enterButton.addEventListener("submit", enterCity);
 
 let scaleC = document.querySelector("#degree-C");
 scaleC.addEventListener("click", changeToCelcius);
