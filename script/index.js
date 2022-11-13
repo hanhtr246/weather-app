@@ -8,11 +8,15 @@ function search(city) {
   axios.get(apiUrl).then(getWeather);
 }
 
-function getLocation(position) {
+function getUserLocation(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(getWeather);
+}
+function getForcast(coordinates) {
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=${units}`;
+  axios.get(apiUrl).then(displayForecast);
 }
 
 function changeTime(timestamp) {
@@ -87,11 +91,6 @@ function changeIcon(description, iconInfo) {
   //   .querySelector("#description-icon")
   //   .setAttribute("href", `images/${iconFileName}.svg`);
   return iconFileName;
-}
-
-function getForcast(coordinates) {
-  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=${units}`;
-  axios.get(apiUrl).then(displayForecast);
 }
 
 function getWeather(response) {
@@ -183,7 +182,7 @@ scaleF.addEventListener("click", changeToFahrenheit);
 
 let locationButton = document.querySelector(".location-button");
 locationButton.addEventListener("click", function () {
-  navigator.geolocation.getCurrentPosition(getLocation);
+  navigator.geolocation.getCurrentPosition(getUserLocation);
 });
 
 let apiKey = "a47ca9fe29317629114f50ba968f7192";
