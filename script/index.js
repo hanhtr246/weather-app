@@ -13,8 +13,8 @@ function getUserLocation(position) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(displayWeather);
 }
-function getForcast(coordinates) {
-  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=${units}`;
+function getForcast(coordinates, forecastUnits) {
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=${forecastUnits}`;
   axios.get(apiUrl).then(displayForecast);
 }
 
@@ -83,6 +83,7 @@ function convertToFahrenheit(event) {
   document.querySelector(".current-temperature").innerHTML =
     Math.round(temperatureF);
   styleToUnit("Fahrenheit");
+  getForcast(currentCoord, "imperial");
 }
 
 function convertToCelcius(event) {
@@ -90,6 +91,7 @@ function convertToCelcius(event) {
   document.querySelector(".current-temperature").innerHTML =
     Math.round(temperatureC);
   styleToUnit("Celcius");
+  getForcast(currentCoord, units);
 }
 
 function styleToUnit(destinationUnit) {
@@ -130,12 +132,14 @@ function displayWeather(response) {
     .querySelector("#description-icon")
     .setAttribute("href", `images/${updateIcon(description, iconInfo)}.svg`);
 
+  window.currentCoord = response.data.coord;
   updateTime(response.data.dt);
-  getForcast(response.data.coord);
+  getForcast(currentCoord, units);
 }
 
 function displayForecast(response) {
   let forecastData = response.data.daily;
+  console.log(forecastData);
   let forecastElement = document.querySelector("#forecast");
   let forecastHTML = `<div class="row">`;
   forecastData.forEach(function (forecastDay, index) {
