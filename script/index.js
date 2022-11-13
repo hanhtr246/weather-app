@@ -155,7 +155,9 @@ function displayForecast(response) {
         forecastDay.weather[0].main,
         forecastDay.weather[0].icon
       );
-      forecastHTML += `<div class="col chiacot">${formatDay(forecastDay.dt)}
+      forecastHTML += `<div class="col forecast-cols">${formatDay(
+        forecastDay.dt
+      )}
           <div>
           <svg class="small-icon"><image class="bi" width="30px" height="30px" href="images/${iconForecast}.svg"/></svg>
           </div>

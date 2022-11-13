@@ -26,7 +26,6 @@ body {
   filter: invert(37%) sepia(52%) saturate(4178%) hue-rotate(324deg)
     brightness(98%) contrast(107%);
 }
-
 .icon {
   position: relative;
   top: 50px;
@@ -40,38 +39,39 @@ svg.small-icon {
 }
 
 h1,
-h3 {
+h3,
+.current-temperature,
+.units,
+.active {
   color: #616074;
   font-weight: bold;
 }
 h1 {
   font-size: 34px;
 }
-
 .current-temperature {
-  font-weight: bold;
   font-size: 52px;
   color: #ff3366;
 }
 .units {
-  color: #616074;
-  font-weight: bold;
   font-size: 15px;
   position: relative;
   top: -25px;
   left: -3px;
 }
-#degree-C {
-  color: #ff3366;
-}
-
-.active {
-  color: #616074;
-}
-
 .active:hover {
   cursor: pointer;
   text-decoration: underline;
+}
+h3 {
+  font-size: 14px;
+  position: relative;
+  right: 15px;
+  bottom: -15px;
+}
+.updated-time {
+  font-size: 13px;
+  margin-bottom: 10px;
 }
 
 .status,
@@ -85,25 +85,18 @@ h1 {
   margin: 0 14px;
 }
 
-h3 {
-  font-size: 14px;
-  position: relative;
-  right: 15px;
-  bottom: -15px;
-}
-
-.updated-time {
-  font-size: 13px;
-  margin-bottom: 10px;
-}
-
 .next-days {
   text-align: center;
   font-size: 14px;
   color: #616074;
-  margin: 20px 55px 0;
-  /* background: rgba(255, 255, 255, 0.844); */
-  /* border-radius: 10x; */
+  padding-top: 10px;
+  margin: 0 55px;
+}
+.forecast-cols {
+  background: rgba(249, 146, 172, 0.082);
+  border-radius: 5px;
+  margin: 0 7px;
+  padding: 10px 0;
 }
 
 .credit {
@@ -116,16 +109,8 @@ h3 {
   color: #ff3366be;
   text-decoration: none;
 }
-
 em {
   font-size: 10px;
   color: #616074;
   padding-top: 10px;
-}
-
-.chiacot {
-  background: rgba(249, 146, 172, 0.082);
-  border-radius: 5px;
-  margin: 0 7px;
-  padding: 10px 0;
 }
