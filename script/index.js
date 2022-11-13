@@ -77,11 +77,21 @@ function updateIcon(description, iconInfo) {
   return iconFileName;
 }
 
+function formulaToFahrenheit(temperatureInCelcius) {
+  return temperatureInCelcius * 1.8 + 32;
+}
+
 function convertToFahrenheit(event) {
   event.preventDefault();
-  let temperatureF = temperatureC * 1.8 + 32;
-  document.querySelector(".current-temperature").innerHTML =
-    Math.round(temperatureF);
+  document.querySelector(".current-temperature").innerHTML = Math.round(
+    formulaToFahrenheit(temperatureC)
+  );
+  document.querySelector("#temp-min").innerHTML = Math.round(
+    formulaToFahrenheit(tempMin)
+  );
+  document.querySelector("#temp-max").innerHTML = Math.round(
+    formulaToFahrenheit(tempMax)
+  );
   styleToUnit("Fahrenheit");
   getForcast(currentCoord, "imperial");
 }
@@ -90,6 +100,8 @@ function convertToCelcius(event) {
   event.preventDefault();
   document.querySelector(".current-temperature").innerHTML =
     Math.round(temperatureC);
+  document.querySelector("#temp-min").innerHTML = Math.round(tempMin);
+  document.querySelector("#temp-max").innerHTML = Math.round(tempMax);
   styleToUnit("Celcius");
   getForcast(currentCoord, "metric");
 }
@@ -111,6 +123,8 @@ function styleToUnit(destinationUnit) {
 function displayWeather(response) {
   styleToUnit("Celcius");
   temperatureC = response.data.main.temp;
+  tempMin = response.data.main.temp_min;
+  tempMax = response.data.main.temp_max;
   let description = response.data.weather[0].main;
   let iconInfo = response.data.weather[0].icon;
 
@@ -118,12 +132,8 @@ function displayWeather(response) {
     Math.round(temperatureC);
   document.querySelector("#description").innerHTML = description;
   document.querySelector("h1").innerHTML = response.data.name;
-  document.querySelector("#temp-min").innerHTML = Math.round(
-    response.data.main.temp_min
-  );
-  document.querySelector("#temp-max").innerHTML = Math.round(
-    response.data.main.temp_max
-  );
+  document.querySelector("#temp-min").innerHTML = Math.round(tempMin);
+  document.querySelector("#temp-max").innerHTML = Math.round(tempMax);
   document.querySelector("#humidity").innerHTML = response.data.main.humidity;
   document.querySelector("#wind").innerHTML = Math.round(
     response.data.wind.speed
@@ -178,6 +188,8 @@ scaleF.addEventListener("click", convertToFahrenheit);
 
 let apiKey = "a47ca9fe29317629114f50ba968f7192";
 let units = "metric";
-let temperatureC = null;
-let iconFileName = null;
+let iconFileName,
+  temperatureC,
+  tempMax,
+  tempMin = null;
 searchWeather("Paris");
